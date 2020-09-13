@@ -14,7 +14,9 @@ using namespace std;
 
 int main()
 {
-	
+	/*
+	Add Mips Functionality by accepting R type Instructions
+	*/
 	string type1;
 	string  enter;
 	int loop = 0;
@@ -66,6 +68,8 @@ int main()
 		return main();
 	}
 		
+
+
 	
 
 

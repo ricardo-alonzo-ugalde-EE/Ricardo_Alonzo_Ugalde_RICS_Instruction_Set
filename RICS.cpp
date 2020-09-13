@@ -90,8 +90,8 @@ void RICS::rTypeDescription()
 	cout << " R-Type Instruction\n" << endl;
 	cout << " Adds the contents of two registers" << endl;
 	cout << " and stores the value in a third register.\n" << endl;
-	cout << " | 00 | 000000 |0000|0000|0000|OOOO|" << endl;
-	cout << " |type| op-code|reg1|reg2|reg3|reg4|\n" << endl;
+	cout << " | 00 | 000000 |0000|0000|0000|" << endl;
+	cout << " |type| op-code| $d | $s | $t |\n" << endl;
 		
 	return;
 }
@@ -137,7 +137,7 @@ void RICS::rType()
 	cin >> opcode;
 		if( opcode == "add" || opcode == "000000" )
 		{
-			cout << "Add selected. R1+R2 = R3\n" << endl;
+			cout << "Add selected. $d = $s + $t\n" << endl;
 			add();
 		}
 
@@ -162,7 +162,7 @@ void RICS::rType()
 		
 		else if (opcode == "sub" || opcode == "000100")
 		{
-			cout << "Sub selected. R1-R2 = R3\n" << endl;
+			cout << "Sub selected. $d = $s + $t\n" << endl;
 			sub();
 		}
 
@@ -514,30 +514,20 @@ Rtype instruction computation implementation
 */
 int RICS::add()
 {
-	/*if(regArray[reg] != 0 || regArray[reg2] != 0 || regArray[reg3] != 0)
-	{
-		cout << "registers " << &regArray[reg] << " is full. \n";
-		cout << "select a different register\n";
-		return add();
-	}
-	else
-	{
-		regArray[reg] = storedValue;
-	}
-	*/
-	cout << "enter first operand" << endl;
+	
+	cout << "enter first operand: " << endl;
 	cin >> storedValue1;
-	cout << "select register 1-60" << endl;
+	cout << "select register 1-10: $s";
 	cin >> reg1;
 	regArray[reg1] = storedValue1;
-		
-	cout << "enter second operand" << endl;
+
+	cout << "enter second operand: " << endl;
 	cin >> storedValue2;
-	cout << "select register 1-60" << endl;
+	cout << "select register 1-10: $t";
 	cin >> reg2;
 	regArray[reg2] = storedValue2;
 
-	cout << "select operand result register 1-60" << endl;
+	cout << "select destination register: $d ";
 	cin >> reg3;
 	regArray[reg3] = storedValue3;
 
@@ -546,8 +536,8 @@ int RICS::add()
 	
 	cout << "\n";
 
-	cout << " | 00  | 000000 |"; decToBinary(storedValue1); cout << "|"; decToBinary(storedValue2); cout << "|"; decToBinary(storedValue3); cout << "|"; decToBinary(reg4); cout << "|"; cout << endl;
-	cout << " |Rtype| op-code|      op 1      |	op2       |	result     |   	copy	    |\n\n\n" << endl;
+	cout << " | 00  | 000000 |"; decToBinary(storedValue3); cout << "|"; decToBinary(storedValue1); cout << "|"; decToBinary(storedValue2); cout << "|"; cout << endl;
+	cout << " |Rtype| op-code|      $d         |	$s        |	$t         |   	\n\n\n" << endl;
 	
 	
 	
@@ -564,19 +554,19 @@ int RICS::add()
 }
 int RICS::addA()
 {
-	cout << "enter first operand" << endl;
+	cout << "enter first operand: " << endl;
 	cin >> storedValue1;
-	cout << "select register 1-60" << endl;
+	cout << "select register 1-10: $s";
 	cin >> reg1;
 	regArray[reg1] = storedValue1;
 
-	cout << "enter second operand" << endl;
+	cout << "enter second operand: " << endl;
 	cin >> storedValue2;
-	cout << "select register 1-60" << endl;
+	cout << "select register 1-10: $t";
 	cin >> reg2;
 	regArray[reg2] = storedValue2;
 
-	cout << "select operand result register 1-60" << endl;
+	cout << "select destination register: $d ";
 	cin >> reg3;
 	regArray[reg3] = storedValue3;
 
@@ -684,22 +674,23 @@ int RICS::addC()
 
 	return 0;
 }
+
 int RICS::sub()
 {
-	
-	cout << "enter first operand" << endl;
+
+	cout << "enter first operand: " << endl;
 	cin >> storedValue1;
-	cout << "select register 1-60" << endl;
+	cout << "select register 1-10: $s";
 	cin >> reg1;
 	regArray[reg1] = storedValue1;
 
-	cout << "enter second operand" << endl;
+	cout << "enter second operand: " << endl;
 	cin >> storedValue2;
-	cout << "select register 1-60" << endl;
+	cout << "select register 1-10: $t";
 	cin >> reg2;
 	regArray[reg2] = storedValue2;
 
-	cout << "select operand result register 1-60" << endl;
+	cout << "select destination register: $d ";
 	cin >> reg3;
 	regArray[reg3] = storedValue3;
 
@@ -708,8 +699,9 @@ int RICS::sub()
 
 	cout << "\n";
 
-	cout << " | 00  | 000100 |"; decToBinary(storedValue1); cout << "|"; decToBinary(storedValue2); cout << "|"; decToBinary(storedValue3); cout << "|"; decToBinary(reg4); cout << "|"; cout << endl;
-	cout << " |Rtype| op-code|      op 1      |	op2       |	result     |   	copy	    |\n\n\n" << endl;
+	cout << " | 00  | 000001 |"; decToBinary(storedValue3); cout << "|"; decToBinary(storedValue1); cout << "|"; decToBinary(storedValue2); cout << "|"; cout << endl;
+	cout << " |Rtype| op-code|      $d         |	$s        |	$t         |   	\n\n\n" << endl;
+
 
 
 	cout << reg1 << "\t |" << storedValue1 << "\t\t  |" << &regArray[reg1] << "\t    |" << endl;
@@ -718,12 +710,12 @@ int RICS::sub()
 	cout << reg4 << "\t |" << storedValue4 << "\t\t  |" << &regArray[reg4] << "\t    |" << endl;
 	cout << "Register | Register Value | Register Address|" << endl;
 	cout << "\n";
-
 	secondaryGreeting();
-	
+
 
 	return 0;
 }
+
 int RICS::subA()
 {
 	cout << "enter first operand" << endl;
